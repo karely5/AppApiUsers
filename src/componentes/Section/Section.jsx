@@ -28,15 +28,19 @@ import { UserCard } from '../UserCard/UserCard'
 
 export const Section = () => {
   
-  const [count, setCount] = useState(0)
-  const [users, setUsers] = useState([])
+  const [count, setCount] = useState(1)
+  // const [users, setUsers] = useState([]) forma original
+  const [user, setUser] = useState({})
   
   
   useEffect(()=>{
     console.log('useEffet ejecutado');
-    fetch('https://dummyjson.com/users?limit=3').then(res=>res.json()).then(data=> {
-      console.log(data.users)
-      setUsers(data.users)
+    // fetch('https://dummyjson.com/users?limit=3').then(res=>res.json()).then(data=> {
+    fetch(`https://dummyjson.com/users/${count}`)
+    .then(res=>res.json())
+    .then(data=> {
+      console.log(data)
+      setUser(data)
     })
     
   }, [count])
@@ -46,12 +50,11 @@ export const Section = () => {
   return (
     <>
       <h2>{count}</h2>
-      <button onClick={handleClick}>Contador</button>
+      <button onClick={handleClick}>Siguiente</button>
       <section>
-        {users.map((user) => {
-     
-     return <UserCard key={user.id} user={user} />;
-        })}
+        {
+          <UserCard key={user.id} user={user} />
+        }
       </section>
     </>
   );
