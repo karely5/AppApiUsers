@@ -49,7 +49,8 @@ export const Section = () => {
       <button onClick={handleClick}>Contador</button>
       <section>
         {users.map((user) => {
-          return <UserCard key={user.id} user={user} />;
+     
+     return <UserCard key={user.id} user={user} />;
         })}
       </section>
     </>
