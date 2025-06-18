@@ -29,31 +29,35 @@ import { UserCard } from '../UserCard/UserCard'
 export const Section = () => {
   
   const [count, setCount] = useState(1)
-  // const [users, setUsers] = useState([]) forma original
-  const [user, setUser] = useState({})
+  const [likes, setLikes] = useState(0)
+  const [users, setUsers] = useState([])
   
   
   useEffect(()=>{
     console.log('useEffet ejecutado');
     // fetch('https://dummyjson.com/users?limit=3').then(res=>res.json()).then(data=> {
-    fetch(`https://dummyjson.com/users/${count}`)
+    fetch(`https://dummyjson.com/users`)
     .then(res=>res.json())
     .then(data=> {
-      console.log(data)
-      setUser(data)
+      setUsers(data.users)
     })
     
   }, [count])
 
   const handleClick = () => setCount(count + 1);
 
+  const handleIncreaseLikes = () => setLikes(likes + 1)
+
   return (
     <>
       <h2>{count}</h2>
       <button onClick={handleClick}>Siguiente</button>
+      <h2>{likes}</h2>
+      <button onClick={handleIncreaseLikes}>Likes</button>
       <section>
         {
-          <UserCard key={user.id} user={user} />
+          users.map(user => <UserCard key={user.id} user={user} />)
+          
         }
       </section>
     </>
